@@ -1,6 +1,6 @@
 <div align="center">
 
-<h1>Template | Worker</h1>
+<h1>Real-ESRGAN | Worker</h1>
 
 [![Docker Image](https://github.com/runpod-workers/worker-template/actions/workflows/CD-docker_dev.yml/badge.svg)](https://github.com/runpod-workers/worker-template/actions/workflows/CD-docker_dev.yml)
 
