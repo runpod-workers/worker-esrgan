@@ -1,6 +1,6 @@
 # Required Python packages get listed here, one per line.
 # Reccomended to lock the version number to avoid unexpected changes.
 
-runpod==0.9.10
+runpod==1.4.0
 basicsr==1.4.2
 realesrgan==0.3.0
