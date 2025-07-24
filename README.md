@@ -1,35 +1,44 @@
-<div align="center">
+# Real-ESRGAN Worker for RunPod
 
-<h1>Real-ESRGAN | Worker</h1>
+This worker provides an API to upscale images using [Real-ESRGAN](https://github.com/xinntao/Real-ESRGAN).
 
-[![Docker Image](https://github.com/runpod-workers/worker-template/actions/workflows/CD-docker_dev.yml/badge.svg)](https://github.com/runpod-workers/worker-template/actions/workflows/CD-docker_dev.yml)
+## Input
 
-🚀 | A simple worker that can be used as a starting point to build your own custom RunPod Endpoint API worker.
-</div>
+The input to this worker is:
 
-## 📖 | Getting Started
+```json
+{
+  "input": {
+    "data_url": "https://github.com/xinntao/Real-ESRGAN/raw/master/inputs/00003.jpg",
+    "model": "RealESRGAN_x4plus",
+    "scale": 4,
+    "tile": 0,
+    "tile_pad": 10,
+    "pre_pad": 0,
+    "output_type": "individual"
+  }
+}
+```
 
-1. Clone this repository.
-2. (Optional) Add DockerHub credentials to GitHub Secrets.
-3. Add your code to the `src` directory.
-4. Update the `handler.py` file to load models and process requests.
-5. Add any dependencies to the `requirements.txt` file.
-6. Add any other build time scripts to the`builder` directory, for example, downloading models.
-7. Update the `Dockerfile` to include any additional dependencies.
+### Parameters
 
-### CI/CD
+| Parameter | Type | Description |
+| --- | --- | --- |
+| data_url | string | URL to the image to upscale |
+| model | string | Model to use for upscaling. Options: `RealESRGAN_x4plus`, `RealESRNet_x4plus`, `RealESRGAN_x4plus_anime_6B`, `RealESRGAN_x2plus` |
+| scale | float | Scale factor for upscaling |
+| tile | int | Tile size for tiled upscaling. 0 for no tiling |
+| tile_pad | int | Padding size for tiled upscaling |
+| pre_pad | int | Padding size for pre-processing |
+| output_type | string | Output type. Options: `individual`, `zip` |
 
-This repository is setup to automatically build and push a docker image to the GitHub Container Registry. You will need to add the following to the GitHub Secrets for this repository to enable this functionality:
+## Output
 
-- `DOCKERHUB_USERNAME` | Your DockerHub username for logging in.
-- `DOCKERHUB_TOKEN` | Your DockerHub token for logging in.
-- `DOCKERHUB_REPO` | The name of the repository you want to push to.
-- `DOCKERHUB_IMG` | The name of the image you want to push to.
+The output of this worker is a list of URLs to the upscaled images.
 
-The `CD-docker_dev.yml` file will build the image and push it to the `dev` tag, while the `CD-docker_release.yml` file will build the image on releases and tag it with the release version.
+## Local Development
 
-## Best Practices
-
-Models should be part of your docker image, this can be accomplished by either copying them into the image or downloading them during the build process.
-
-If using the input validation utility from the runpod python package, create a `schemas` python file where you can define the schemas, then import that file into your `handler.py` file.
+```bash
+docker build -t esrgan-worker .
+docker run -p 8080:8080 esrgan-worker
+```
