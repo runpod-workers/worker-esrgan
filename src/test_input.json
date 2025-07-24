@@ -1,0 +1,11 @@
+{
+  "input": {
+    "data_url": "https://github.com/xinntao/Real-ESRGAN/raw/master/inputs/00003.jpg",
+    "model": "RealESRGAN_x4plus",
+    "scale": 4,
+    "tile": 0,
+    "tile_pad": 10,
+    "pre_pad": 0,
+    "output_type": "individual"
+  }
+}
